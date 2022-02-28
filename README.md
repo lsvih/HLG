@@ -8,7 +8,7 @@ All configuration are described in `args.py`:
 
 ```bash
 python3 run_class.py --help
-python3 run_matcn.py --help
+python3 run_match.py --help
 ```
 
 ### Preparatory
