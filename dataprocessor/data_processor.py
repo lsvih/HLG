@@ -14,8 +14,7 @@ class DataProcessor(object):
         raise NotImplementedError()
 
     def get_labels(self):
-        """Gets the list of labels for this data set."""
-        raise NotImplementedError()
+        pass
 
     @classmethod
     def _read_tsv(cls, input_file, quotechar=None):
