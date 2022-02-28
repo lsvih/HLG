@@ -30,7 +30,7 @@ If you want to conduct experiments on other datasets, please follow the format o
 
 Please refer to `collate` function in `dataloader/classifier.py` or `dataloader/matcher.py`.
 
-### About Model and hte Multi-Step Information Propagation
+### About Model and the Multi-Step Information Propagation
 
 Please refer to `model.py`.
 
