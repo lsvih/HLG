@@ -6,10 +6,12 @@ def get_args():
 
     parser.add_argument("--exp_name",
                         default="ChnSenti",
+                        choices=["ChnSenti", "THUCNews", "weibo", "LCQMC", "XNLI"],
                         type=str,
                         help="The name of benchmark dataset")
     parser.add_argument("--model_type",
-                        default="BERT",  # BERT | BERTwwm | ERNIE
+                        default="BERT",
+                        choices=["BERT", "BERTwwm", "ERNIE"],
                         type=str,
                         help="The name of bert model")
 
@@ -58,7 +60,7 @@ def get_args():
                         type=float,
                         help="Fine-tuning learning rate of BERT parameters")
     parser.add_argument("--model_learning_rate",
-                        default=1e-5,
+                        default=5e-5,
                         type=float,
                         help="Learning rate of parameters of graph model")
 
@@ -77,5 +79,22 @@ def get_args():
     parser.add_argument("--num_workers", type=int, default=0, help="Number of dataloader workers")
 
     config = parser.parse_args()
+
+    base_name = config.exp_name + config.model_type
+
+    config.output_dir = 'output/' + base_name + '/'
+    config.cache_dir = 'cache/' + base_name + '/'
+
+    if config.model_type == 'BERT':
+        config.bert_vocab_file = "bert-base-chinese"
+        config.bert_model_dir = "/home/data/embeddings/bert-base-chinese"
+    elif config.model_type == 'ERNIE':
+        config.bert_vocab_file = "/home/data/embeddings/ERNIE_1.0_max-len-512-pytorch"
+        config.bert_model_dir = "/home/data/embeddings/ERNIE_1.0_max-len-512-pytorch"
+    elif config.model_type == 'BERTwwm':
+        config.bert_vocab_file = "/home/data/embeddings/bert-wwm-chinese"
+        config.bert_model_dir = "/home/data/embeddings/bert-wwm-chinese"
+
+    config.data_dir = 'dataset/MultiSeg' + base_name + '/'
 
     return config
