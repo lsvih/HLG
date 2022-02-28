@@ -47,9 +47,9 @@ def main(config, model_id, data_processor, load_data):
     # Train and dev
     if config.do_train:
         train_dataloader, train_examples_len = load_data(
-            config.data_dir, processor, config.max_seq_length, config.train_batch_size, "train")
+            config.data_dir, processor, config.max_seq_length, config.train_batch_size, "train", config.num_workers)
         dev_dataloader, _ = load_data(
-            config.data_dir, processor, config.max_seq_length, config.dev_batch_size, "dev")
+            config.data_dir, processor, config.max_seq_length, config.dev_batch_size, "dev", config.num_workers)
 
         num_train_optimization_steps = int(
             train_examples_len / config.train_batch_size / config.gradient_accumulation_steps) * (
@@ -99,7 +99,7 @@ def main(config, model_id, data_processor, load_data):
 
     """ Test """
     test_dataloader, _ = load_data(
-        config.data_dir, processor, config.max_seq_length, config.test_batch_size, "test")
+        config.data_dir, processor, config.max_seq_length, config.test_batch_size, "test", config.num_workers)
 
     criterion = nn.CrossEntropyLoss()
     criterion = criterion.to(device)
